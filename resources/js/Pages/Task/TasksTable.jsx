@@ -5,9 +5,9 @@ import TextInput from '@/Components/TextInput'
 import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from '@/constans'
 import { Link, router } from '@inertiajs/react'
 
-const TasksTable = ({ tasks, queryParams = null }) => {
+const TasksTable = ({ tasks, queryParams = null, hideProjectNameColumn = false }) => {
   queryParams = queryParams || {}
-  
+
   const searchFieldChange = (name, value) => {
     if (value) {
       queryParams[name] = value
@@ -55,6 +55,13 @@ const TasksTable = ({ tasks, queryParams = null }) => {
               Image
             </th>
 
+            {
+              !hideProjectNameColumn &&
+              <th className="px-3 py-3">
+                Project Name
+              </th>
+            }
+
             <TableHeading
               name="name"
               sort_field={queryParams.sort_field}
@@ -99,6 +106,14 @@ const TasksTable = ({ tasks, queryParams = null }) => {
             <th scope="col" className="px-6 py-3">
 
             </th>
+
+            {
+              !hideProjectNameColumn && 
+              <th scope="col" className="px-6 py-3">
+
+              </th>
+            }
+           
             <th scope="col" className="px-6 py-3">
               <TextInput
                 className="w-full"
@@ -144,6 +159,14 @@ const TasksTable = ({ tasks, queryParams = null }) => {
                 <td className="px-3 py-2">
                   <img src={task.image_path} alt="" style={{ width: 60 }} />
                 </td>
+
+                {
+                  !hideProjectNameColumn &&
+                  <td className="px-3 py-2">
+                    {task.project.name}
+                  </td>
+                }
+                
                 <td className="px-3 py-2">
                   {task.name}
                 </td>
