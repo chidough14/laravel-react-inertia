@@ -23,7 +23,7 @@ const Show = ({ project, tasks, queryParams }) => {
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
             <div>
               <img
-                src={project.path_name}
+                src={project.image_path}
                 alt=""
                 className="w-full h-64 object-cover"
               />

@@ -42,6 +42,14 @@ const Index = ({ projects, queryParams = null, success }) => {
     router.get(route('project.index'), queryParams)
   }
 
+  const deleteProject = (project) => {
+    if (!window.confirm('Are you sure you want to delete the project?')) {
+      return
+    }
+
+    router.delete(route('project.destroy', project.id))
+  }
+
   return (
     <AuthenticatedLayout
       user={user}
@@ -198,14 +206,17 @@ const Index = ({ projects, queryParams = null, success }) => {
                           <td className="px-3 py-2">
                             {project.createdBy.name}
                           </td>
-                          <td className="px-3 py-2">
-                            <Link href={route('project.edit', project.id)} className='text-blue-500'>
+                          <td className="px-3 py-2 text-nowrap">
+                            <Link href={route('project.edit', project.id)} className='text-blue-500 ml-3'>
                               Edit
                             </Link>
-
-                            <Link href={route('project.destroy', project.id)} className='text-red-500 ml-3'>
+                            
+                            <button 
+                              className='text-red-500 ml-2'
+                              onClick={() => deleteProject(project)}
+                            >
                               Delete
-                            </Link>
+                            </button>
                           </td>
                         </tr>
                       ))
