@@ -69,7 +69,7 @@ class TaskController extends Controller
         $data['updated_by'] = auth()->id();
 
         if ($image) {
-            $data['image_path'] = $image->store('task/'. Str::random(), 'public');
+            $data['image_path'] = $image->store('task/' . Str::random(), 'public');
         }
 
         Task::create($data);
@@ -82,25 +82,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $query = $task->tasks();
-
-        $sortField = request("sort_field", "created_at");
-        $sortDirection = request("sort_direction", "desc");
-
-        if (request("name")) {
-            $query->where("name", "like", "%" . request("name") . "%");
-        }
-
-        if (request("status")) {
-            $query->where("status", request("status"));
-        }
-
-        $tasks = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
 
         return inertia('Task/Show', [
-            'task' => new TaskResource($task),
-            'tasks' => TaskResource::collection($tasks),
-            'queryParams' => request()->query() ?: null
+            'task' => new TaskResource($task)
         ]);
     }
 
@@ -134,7 +118,7 @@ class TaskController extends Controller
                 Storage::disk('public')->deleteDirectory(dirname($task->image_path));
             }
 
-            $data['image_path'] = $image->store('task/'. Str::random(), 'public');
+            $data['image_path'] = $image->store('task/' . Str::random(), 'public');
         }
 
         $task->update($data);
