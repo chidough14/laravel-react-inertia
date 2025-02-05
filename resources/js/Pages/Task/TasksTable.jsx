@@ -192,7 +192,7 @@ const TasksTable = ({ tasks, success, queryParams = null, hideProjectNameColumn 
                   <td className="px-3 py-2">
                     <span
                       className={
-                        "px-2 py-1 rounded text-white " +
+                        "px-2 py-1 text-nowrap rounded text-white " +
                         TASK_STATUS_CLASS_MAP[task.status]
                       }
                     >
