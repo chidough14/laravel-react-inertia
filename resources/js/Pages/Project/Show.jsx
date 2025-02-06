@@ -1,6 +1,6 @@
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constans";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { Head, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import TasksTable from "../Task/TasksTable";
 
 const Show = ({ project, tasks, queryParams }) => {
@@ -10,9 +10,18 @@ const Show = ({ project, tasks, queryParams }) => {
     <AuthenticatedLayout
       user={user}
       header={
-        <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-          {project.name}
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {project.name}
+          </h2>
+
+          <Link 
+            href={route('project.edit', project.id)} 
+            className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
+          >
+            Edit
+          </Link>
+        </div>
       }
     >
 
@@ -94,9 +103,9 @@ const Show = ({ project, tasks, queryParams }) => {
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
             <div className="p-6 text-gray-900 dark:text-gray-100">
-              <TasksTable 
-                tasks={tasks} 
-                queryParams={queryParams} 
+              <TasksTable
+                tasks={tasks}
+                queryParams={queryParams}
                 hideProjectNameColumn={true}
               />
             </div>
